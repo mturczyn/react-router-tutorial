@@ -1,15 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
-import { Link, NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import Users from './components/Users';
 import Layout from './components/Layout';
 import NoMatch from './components/NoMatch';
-import { users } from './users';
+import { users as initialUsers } from './users';
 import User from './components/User';
 
 function App() {
+  const [users, setUsers] = useState(initialUsers)
+  const navigate = useNavigate()
+
+  const handleRemoveUser = (userId: any) => {
+    setUsers(state => state.filter(user => user.id !== userId));
+    navigate('/users')
+  }
+
   return (
     <>
       <h1>React Router</h1>
@@ -31,7 +38,7 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path="home" element={<Home/>}/>
           <Route path="users" element={<Users users={users}/>}>
-            <Route path=":userId" element={<User/>}/>
+            <Route path=":userId" element={<User onRemoveUser={handleRemoveUser}/>}/>
           </Route>
           <Route path="*" element={<NoMatch/>}/>
         </Route>
