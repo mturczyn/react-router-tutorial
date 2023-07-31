@@ -15,13 +15,13 @@ const Users = ({users}: any) => {
     return (
         <>
             <h2>Users</h2>
-
-            <input
-                type="text"
-                value={searchTerm}
-                onChange={handleSearch}
-            />
-
+            <label>Search users
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                />
+            </label>
             <ul>
                 {users
                     .filter((user: any) => {

@@ -7,6 +7,8 @@ import Layout from './components/Layout';
 import NoMatch from './components/NoMatch';
 import { users as initialUsers } from './users';
 import User from './components/User';
+import Account from './components/Account';
+import Profile from './components/Profile';
 
 function App() {
   const [users, setUsers] = useState(initialUsers)
@@ -38,7 +40,10 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path="home" element={<Home/>}/>
           <Route path="users" element={<Users users={users}/>}>
-            <Route path=":userId" element={<User onRemoveUser={handleRemoveUser}/>}/>
+            <Route path=":userId" element={<User onRemoveUser={handleRemoveUser}/>}>
+              <Route path="profile" element={<Profile/>}/>
+              <Route path="account" element={<Account/>}/>
+            </Route>
           </Route>
           <Route path="*" element={<NoMatch/>}/>
         </Route>
